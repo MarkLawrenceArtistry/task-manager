@@ -32,7 +32,7 @@ const initDB = () => {
                 status TEXT NOT NULL
             )
         `
-
+        
         // priority
         db.run(priority, (err) => {
             if(err) {
