@@ -56,7 +56,7 @@ const initDB = () => {
             if(err) {
                 console.log("ERROR CREATING tasks TABLE: " + err.message)
             } else {
-                console.log("priority TABLE CREATED/ALREADY EXISTS.")
+                console.log("tasks TABLE CREATED/ALREADY EXISTS.")
             }
         })
     })
