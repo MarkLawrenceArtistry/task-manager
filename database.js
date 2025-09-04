@@ -51,7 +51,7 @@ const initDB = () => {
             }
         })
 
-        // priority
+        // tasks
         db.run(tasks, (err) => {
             if(err) {
                 console.log("ERROR CREATING tasks TABLE: " + err.message)
