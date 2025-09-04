@@ -4,10 +4,12 @@ const { db, initDB } = require('./database')
 
 const PORT = 3000
 const app = express()
+const taskRoutes = require('./routes/tasks')
 
 // middlewares
 app.use(express.json())
 app.use(cors())
+app.use('/api/tasks', taskRoutes)
 
 initDB()
 
