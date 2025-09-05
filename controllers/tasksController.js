@@ -56,7 +56,7 @@ const getAllTasks = (req, res) => {
             return res.status(500).json({success:false,data:err.message})
         }
 
-        res.status(200).json({success:false,data:rows})
+        res.status(200).json({success:true,data:rows})
     })
 }
 
@@ -88,4 +88,23 @@ const updateTask = (req, res) => {
     })
 }
 
-module.exports = { createTask, getTask, getAllTasks, updateTask }
+// for DELETE
+const deleteTask = (req, res) => {
+    const { id } = req.params
+    const query = `DELETE FROM tasks WHERE id = ?`
+    const params = [id]
+
+    db.run(query, params, function(err) {
+        if(err) {
+            return res.status(500).json({success:false,data:err.message})
+        }
+
+        if(this.changes > 0) {
+            return res.status(200).json({success:true,data:`Task successfully deleted! Changes: ${this.changes}`})
+        } else {
+            return res.status(404).json({success:false,data:"Task not found."})
+        }
+    })
+}
+
+module.exports = { createTask, getTask, getAllTasks, updateTask, deleteTask }
