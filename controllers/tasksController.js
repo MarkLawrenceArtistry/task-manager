@@ -24,4 +24,26 @@ const createTasks = (req, res) => {
     })
 }
 
-module.exports = { createTasks }
+// for GET (single) task
+const getTask = (req, res) => {
+    const { id } = req.params
+    const query = `
+        SELECT * FROM tasks
+        WHERE id = ?
+    `
+    const params = [id]
+    db.get(query, params, (err, row) => {
+        if(err) {
+            return res.status(500).json({success:false,data:err.message})
+        }
+        
+        if(!row) {
+            return res.status(404).json({success:false,data:"Task not found."})
+        } else {
+            res.status(200).json({success:true,data:row})
+        }
+        
+    })
+}
+
+module.exports = { createTasks, getTask }
