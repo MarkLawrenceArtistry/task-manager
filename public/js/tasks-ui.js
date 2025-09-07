@@ -48,5 +48,4 @@ export const renderTasks = (tasks, divContainer) => {
     });
     
     divContainer.appendChild(table)
-    console.log(divContainer)
 }
