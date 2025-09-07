@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <div class="sidebar-header">
+                    <img src="" alt="Task Manager App Logo" class="sidebar-logo">
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-title">Menu</span>
+                    <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                </div>
+                <div class="nav-group">
+                    <a href="settings.html" class="nav-link">Settings</a>
+                    <a href="index.html" class="nav-link">Logout</a>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <h1 class="main-title">Task Manager App</h1>
+                <button id="add-task-btn" class="btn btn-primary">Add New Task</button>
+            </header>
+
+            <section class="content-card">
+                <h1 class="main-title">Task Manager</h1>
+                <div class="controls-container">
+                    <div class="search-bar">
+                        <form id="search-task-form">
+                            <input type="text" placeholder="Search..." id="search-task-input">
+                        </form>
+                    </div>
+                </div>
+                <div id="task-list-container" class="table-container">
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="add-task-modal" class="modal" style="display: none">
+        <div class="modal-content">
+            <span class="close-btn" id="close-add-task-modal">&times;</span>
+            <form id="add-task-form">
+                <div>
+                    <label class="small-lbl">Description</label>
+                    <input type="text" id="task-description">
+                </div>
+                
+                <div>
+                    <label class="small-lbl">Priority</label>
+                    <input type="text" id="task-priority">
+                </div>
+
+                <div>
+                    <label class="small-lbl">Progress</label>
+                    <input type="text" id="task-progress">
+                </div>
+
+                <div>
+                    <label class="small-lbl">Status</label>
+                    <input type="text" id="task-status">
+                </div>
+
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js" type="module"></script>
+</body>
+</html>
