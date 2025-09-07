@@ -18,6 +18,7 @@ export const renderTasks = (tasks, divContainer) => {
                 <th>Priority</th>
                 <th>Progress</th>
                 <th>Status</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody></tbody>
