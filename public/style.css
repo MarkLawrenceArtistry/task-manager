@@ -169,6 +169,30 @@
     position: relative;
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.small-lbl {
+    display: block;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.form input, .form button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.form input {
+    background-color: var(--gray-clr);
+    color: var(--secondary-clr);
+}
+
 
 
 /*    BUTTON STYLES    */
