@@ -88,6 +88,32 @@ const updateTask = (req, res) => {
     })
 }
 
+// for FINISHED
+const finishedTask = (req, res) => {
+    const { id } = req.params
+    const { status } = req.body
+
+    const query = `
+        UPDATE tasks
+        SET
+            status = COALESCE(?, status)
+        WHERE id = ?
+    `
+    const params = [status, id]
+
+    db.run(query, params, function(err) {
+        if(err) {
+            return res.status(500).json({success:false,data:err.message})
+        }
+
+        if(this.changes > 0) {
+            return res.status(200).json({success:true,data:`Updated this task no.${this.lastID}: to "Finished" status.`})
+        } else {
+            return res.status(404).json({success:false,data:"Task not found."})
+        }
+    })
+}
+
 // for DELETE
 const deleteTask = (req, res) => {
     const { id } = req.params
@@ -107,4 +133,4 @@ const deleteTask = (req, res) => {
     })
 }
 
-module.exports = { createTask, getTask, getAllTasks, updateTask, deleteTask }
+module.exports = { createTask, getTask, getAllTasks, updateTask, deleteTask, finishedTask }

@@ -76,9 +76,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // for done
+            if(target.classList.contains('done-btn')) {
+                if(confirm('Are you sure you want to finish this task?')) {
+                    try {
+                        await api.finishTask(taskID)
+                        loadTasks()
+                    } catch(err) {
+                        console.error(err)
+                    }
+                }
+            }
+
             // for edit
         })
     }
+
+    // DONE
 
     async function loadTasks() {
         try {

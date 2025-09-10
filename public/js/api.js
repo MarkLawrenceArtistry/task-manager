@@ -34,6 +34,28 @@ export async function createTask(taskInfo) {
     return result.data
 }
 
+export async function finishTask(currentTaskID) {
+    const response = await fetch(`/api/tasks/${currentTaskID}`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            status: 'Finished'
+        })
+    })
+    if(!response.ok) {
+        throw new Error('Error finishing task')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
+
 export async function deleteTask(currentTaskID) {
     const response = await fetch(`api/tasks/${currentTaskID}`, {
         method: 'DELETE',
