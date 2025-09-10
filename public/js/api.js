@@ -76,3 +76,24 @@ export async function deleteTask(currentTaskID) {
     return result.data
 
 }
+
+export async function updateTask(currentTaskID, taskInfo) {
+    const response = await fetch(`/api/tasks/${currentTaskID}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(taskInfo)
+    })
+
+    if(!response.ok) {
+        throw new Error('Error updating task')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}

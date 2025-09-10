@@ -8,8 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTaskModal = document.querySelector('#add-task-modal')
     const addTaskForm = document.querySelector('#add-task-form')
     const closeAddTaskModal = document.querySelector('#close-add-task-modal')
+
+    const updateTaskModal = document.querySelector('#update-task-modal')
+    const updateTaskForm = document.querySelector('#update-task-form')
+    const closeUpdateTaskModal = document.querySelector('#close-update-task-modal')
     
-    const currentTaskID = null;
+    let currentTaskID = null;
 
     if(addTaskBtn) {
         addTaskBtn.addEventListener('click', (e) => {
@@ -24,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal(addTaskModal)
         })
     }
+
+    closeUpdateTaskModal.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        closeModal(updateTaskModal)
+    })
 
     const closeModal = (modal) => {
         modal.style.display = 'none'
@@ -46,6 +56,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 await api.createTask(taskInfo)
                 alert('Added task successfully')
                 closeModal(addTaskModal)
+            } catch(err) {
+                console.error(err)
+            }
+
+            loadTasks()
+        })
+    }
+    if(updateTaskForm) {
+        updateTaskForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            console.log(document.querySelector('#update-task-description'))
+
+            const taskInfo = {
+                description: document.querySelector('#updated-task-description').value || null,
+                priority: document.querySelector('#updated-task-priority').value || null,
+                progress: Number(document.querySelector('#updated-task-progress').value) || null,
+                status: document.querySelector('#updated-task-status').value || null
+            }
+
+            console.log(taskInfo)
+
+            try {
+                await api.updateTask(currentTaskID, taskInfo)
+                alert('Updated task successfully')
+                closeModal(updateTaskModal)
             } catch(err) {
                 console.error(err)
             }
@@ -88,6 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // for edit
+            if(target.classList.contains('edit-btn')) {
+                try {
+                    currentTaskID = taskID
+                    updateTaskModal.style.display = 'flex'
+                } catch(err) {
+                    console.error(err)
+                }
+            }
         })
     }
 

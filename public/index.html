@@ -74,6 +74,37 @@
         </div>
     </div>
 
+    <div id="update-task-modal" class="modal" style="display: none">
+        <div class="modal-content">
+            <span class="close-btn" id="close-update-task-modal">&times;</span>
+            <form id="update-task-form" class="form">
+                <div>
+                    <label class="small-lbl">Description</label>
+                    <input type="text" id="updated-task-description">
+                </div>
+                
+                <div>
+                    <label class="small-lbl">Priority</label>
+                    <input type="text" id="updated-task-priority">
+                </div>
+
+                <div>
+                    <label class="small-lbl">Progress</label>
+                    <input type="text" id="updated-task-progress">
+                </div>
+
+                <div>
+                    <label class="small-lbl">Status</label>
+                    <input type="text" id="updated-task-status">
+                </div>
+
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="script.js" type="module"></script>
 </body>
 </html>
