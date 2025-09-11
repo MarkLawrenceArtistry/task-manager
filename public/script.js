@@ -3,7 +3,11 @@ import * as ui from './js/ui.js'
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // CONSTANTS
     const taskListContainer = document.querySelector('#task-list-container')
+    const statusListContainer = document.querySelector('#status-list-container')
+    const priorityListContainer = document.querySelector('#status-list-container')
+
     const addTaskBtn = document.querySelector('#add-task-btn')
     const addTaskModal = document.querySelector('#add-task-modal')
     const addTaskForm = document.querySelector('#add-task-form')
@@ -15,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentTaskID = null;
 
+
+
+    // CLOSE MODAL BUTTONS
     if(addTaskBtn) {
         addTaskBtn.addEventListener('click', (e) => {
             e.preventDefault()
@@ -28,16 +35,37 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal(addTaskModal)
         })
     }
+    if(closeUpdateTaskModal) {
+        closeUpdateTaskModal.addEventListener('click', (e) => {
+            e.preventDefault()
 
-    closeUpdateTaskModal.addEventListener('click', (e) => {
-        e.preventDefault()
-
-        closeModal(updateTaskModal)
-    })
-
+            closeModal(updateTaskModal)
+        })
+    }
     const closeModal = (modal) => {
         modal.style.display = 'none'
     }
+
+
+
+    // INITIALIZERS
+    async function loadTasks() {
+        try {
+            const tasks = await api.fetchTasks()
+            ui.renderTasks(tasks, taskListContainer)
+        } catch(err) {
+            console.error(err)
+        }
+    }
+    async function loadStatus() {
+        try {
+            const statuses = await api.fetchStatus()
+            ui.renderStatus(statuses, statusListContainer)
+        } catch(err) {
+            console.error(err)
+        }
+    }
+
 
 
     // TASK
@@ -135,16 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    // DONE
 
-    async function loadTasks() {
-        try {
-            const tasks = await api.fetchTasks()
-            ui.renderTasks(tasks, taskListContainer)
-        } catch(err) {
-            console.error(err)
-        }
+
+    if(window.location.pathname.endsWith("index.html")) {
+        loadTasks()
+    }
+    if(window.location.pathname.endsWith("config.html")) {
+        loadStatus()
     }
 
-    loadTasks()
 })

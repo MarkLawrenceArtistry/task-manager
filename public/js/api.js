@@ -1,5 +1,6 @@
 
 
+// TASKS
 export async function fetchTasks() {
     const response = await fetch('/api/tasks')
     if(!response.ok) {
@@ -13,7 +14,6 @@ export async function fetchTasks() {
 
     return result.data
 }
-
 export async function createTask(taskInfo) {
     const response = await fetch('/api/tasks', {
         method: 'POST',
@@ -33,7 +33,6 @@ export async function createTask(taskInfo) {
 
     return result.data
 }
-
 export async function finishTask(currentTaskID) {
     const response = await fetch(`/api/tasks/${currentTaskID}`, {
         method: 'PATCH',
@@ -55,7 +54,6 @@ export async function finishTask(currentTaskID) {
 
     return result.data
 }
-
 export async function deleteTask(currentTaskID) {
     const response = await fetch(`api/tasks/${currentTaskID}`, {
         method: 'DELETE',
@@ -76,7 +74,6 @@ export async function deleteTask(currentTaskID) {
     return result.data
 
 }
-
 export async function updateTask(currentTaskID, taskInfo) {
     const response = await fetch(`/api/tasks/${currentTaskID}`, {
         method: 'PUT',
@@ -88,6 +85,23 @@ export async function updateTask(currentTaskID, taskInfo) {
 
     if(!response.ok) {
         throw new Error('Error updating task')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
+
+
+
+// STATUS
+export async function fetchStatus() {
+    const response = await fetch('/api/status')
+    if(!response.ok) {
+        throw new Error('Error fetching status')
     }
 
     const result = await response.json()
