@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const addStatusModal = document.querySelector('#add-status-modal')
     const addStatusForm = document.querySelector('#add-status-form')
     const closeAddStatusModal = document.querySelector('#close-add-status-modal')
+
+    // STATUS
+    const addPriorityBtn = document.querySelector('#add-priority-btn')
+    const addPriorityModal = document.querySelector('#add-priority-modal')
+    const addPriorityForm = document.querySelector('#add-priority-form')
+    const closeAddPriorityModal = document.querySelector('#close-add-priority-modal')
     
     let currentTaskID = null;
 
@@ -249,7 +255,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // PRIORITY
+    if(addPriorityBtn) {
+        addPriorityBtn.addEventListener('click', (e) => {
+            e.preventDefault()
 
+            addPriorityModal.style.display = 'flex'
+        })
+
+        closeAddPriorityModal.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            closeModal(addPriorityModal)
+        })
+    }
+    if(addPriorityForm) {
+        addPriorityForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const priorityInfo = {
+                name: document.querySelector('#priority-name').value
+            }
+
+            try {
+                await api.createPriority(priorityInfo)
+                alert('Added priority successfully')
+                closeModal(addPriorityModal)
+            } catch(err) {
+                console.error(err)
+            }
+
+            loadPriorities()
+        })
+    }
+    if(statusListContainer) {
+        statusListContainer.addEventListener('click', async (e) => {
+            e.preventDefault()
+
+            const target = e.target
+            const statuskItem = target.closest('.status-item');
+            if (!statuskItem) return;
+
+            const statusID = statuskItem.dataset.id
+
+            // for delete
+            if(target.classList.contains('delete-btn')) {
+                if(confirm('Are you sure you want to delete this status?')) {
+                    try {
+                        await api.deleteStatus(statusID)
+                        loadStatus()
+                    } catch(err) {
+                        console.error(err)
+                    }
+                }
+            }
+
+            // for edit
+            // if(target.classList.contains('edit-btn')) {
+            //     try {
+            //         currentTaskID = taskID
+            //         updateTaskModal.style.display = 'flex'
+            //     } catch(err) {
+            //         console.error(err)
+            //     }
+            // }
+        })
+    }
 
 
 

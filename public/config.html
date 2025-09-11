@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <title>Configuration</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -58,6 +59,23 @@
                 <div>
                     <label class="small-lbl">Name</label>
                     <input type="text" id="status-name">
+                </div>
+                
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOR CREATE PRIORITY -->
+    <div id="add-priority-modal" class="modal" style="display: none">
+        <div class="modal-content">
+            <span class="close-btn" id="close-add-priority-modal">&times;</span>
+            <form id="add-priority-form" class="form">
+                <div>
+                    <label class="small-lbl">Name</label>
+                    <input type="text" id="priority-name">
                 </div>
                 
                 <div>

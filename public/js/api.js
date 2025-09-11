@@ -166,3 +166,42 @@ export async function fetchPriorities() {
 
     return result.data
 }
+export async function createPriority(priorityInfo) {
+    const response = await fetch('/api/priority', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(priorityInfo)
+    })
+    if(!response.ok) {
+        throw new Error('Error creating priority')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
+export async function deletePriority(priorityID) {
+    const response = await fetch(`api/priority/${priorityID}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    if(!response.ok) {
+        throw new Error('Error deleting priority')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+
+}

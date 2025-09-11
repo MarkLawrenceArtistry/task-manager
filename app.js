@@ -27,3 +27,5 @@ app.listen(PORT, () => {
 app.get('/', (req, res) => {
     res.status(200).json({success:true,data:"Welcome to task-manager app!"})
 })
+
+app.get('/favicon.ico', (req, res) => res.status(204).send());
