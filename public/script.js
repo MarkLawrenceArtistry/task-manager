@@ -6,42 +6,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // CONSTANTS
     const taskListContainer = document.querySelector('#task-list-container')
     const statusListContainer = document.querySelector('#status-list-container')
-    const priorityListContainer = document.querySelector('#status-list-container')
+    const priorityListContainer = document.querySelector('#priority-list-container')
 
+    // TASK
     const addTaskBtn = document.querySelector('#add-task-btn')
     const addTaskModal = document.querySelector('#add-task-modal')
     const addTaskForm = document.querySelector('#add-task-form')
     const closeAddTaskModal = document.querySelector('#close-add-task-modal')
-
     const updateTaskModal = document.querySelector('#update-task-modal')
     const updateTaskForm = document.querySelector('#update-task-form')
     const closeUpdateTaskModal = document.querySelector('#close-update-task-modal')
+
+    // STATUS
+    const addStatusBtn = document.querySelector('#add-status-btn')
+    const addStatusModal = document.querySelector('#add-status-modal')
+    const addStatusForm = document.querySelector('#add-status-form')
+    const closeAddStatusModal = document.querySelector('#close-add-status-modal')
     
     let currentTaskID = null;
 
 
 
-    // CLOSE MODAL BUTTONS
-    if(addTaskBtn) {
-        addTaskBtn.addEventListener('click', (e) => {
-            e.preventDefault()
-
-            addTaskModal.style.display = 'flex'
-        })
-
-        closeAddTaskModal.addEventListener('click', (e) => {
-            e.preventDefault()
-
-            closeModal(addTaskModal)
-        })
-    }
-    if(closeUpdateTaskModal) {
-        closeUpdateTaskModal.addEventListener('click', (e) => {
-            e.preventDefault()
-
-            closeModal(updateTaskModal)
-        })
-    }
+    // UTILITY
     const closeModal = (modal) => {
         modal.style.display = 'none'
     }
@@ -65,10 +51,38 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(err)
         }
     }
+    async function loadPriorities() {
+        try {
+            const priorities = await api.fetchPriorities()
+            ui.renderStatus(priorities, priorityListContainer)
+        } catch(err) {
+            console.error(err)
+        }
+    }
 
 
 
     // TASK
+    if(addTaskBtn) {
+        addTaskBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            addTaskModal.style.display = 'flex'
+        })
+
+        closeAddTaskModal.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            closeModal(addTaskModal)
+        })
+    }
+    if(closeUpdateTaskModal) {
+        closeUpdateTaskModal.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            closeModal(updateTaskModal)
+        })
+    }
     if(addTaskForm) {
         addTaskForm.addEventListener('submit', async (e) => {
             e.preventDefault()
@@ -165,11 +179,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // STATUS
+    if(addStatusBtn) {
+        addStatusBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            addStatusModal.style.display = 'flex'
+        })
+
+        closeAddStatusModal.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            closeModal(addStatusModal)
+        })
+    }
+    if(addStatusForm) {
+        addStatusForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const statusInfo = {
+                name: document.querySelector('#status-name').value
+            }
+
+            try {
+                await api.createStatus(statusInfo)
+                alert('Added status successfully')
+                closeModal(addStatusModal)
+            } catch(err) {
+                console.error(err)
+            }
+
+            loadStatus()
+        })
+    }
+    if(statusListContainer) {
+        statusListContainer.addEventListener('click', async (e) => {
+            e.preventDefault()
+
+            const target = e.target
+            const statuskItem = target.closest('.status-item');
+            if (!statuskItem) return;
+
+            const statusID = statuskItem.dataset.id
+
+            // for delete
+            if(target.classList.contains('delete-btn')) {
+                if(confirm('Are you sure you want to delete this status?')) {
+                    try {
+                        await api.deleteStatus(statusID)
+                        loadStatus()
+                    } catch(err) {
+                        console.error(err)
+                    }
+                }
+            }
+
+            // for edit
+            // if(target.classList.contains('edit-btn')) {
+            //     try {
+            //         currentTaskID = taskID
+            //         updateTaskModal.style.display = 'flex'
+            //     } catch(err) {
+            //         console.error(err)
+            //     }
+            // }
+        })
+    }
+
+
+
+
+
+
+
+
+    // CALLERS
     if(window.location.pathname.endsWith("index.html")) {
         loadTasks()
     }
     if(window.location.pathname.endsWith("config.html")) {
         loadStatus()
+        loadPriorities()
     }
-
 })

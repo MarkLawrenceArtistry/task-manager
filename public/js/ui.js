@@ -88,7 +88,53 @@ export const renderStatus = (statuses, divContainer) => {
             <td>
                 <div class="action-buttons">
                     <button class="btn edit-btn">Edit</button>
-                    <button class="btn done-btn">Done</button>
+                    <button class="btn delete-btn">Delete</button>
+                </div>
+            </td>
+        `
+
+        tbody.appendChild(row)
+    });
+    
+    divContainer.appendChild(table)
+}
+
+
+
+// PRIORITY
+export const renderPriorities = (priorities, divContainer) => {
+    divContainer.innerHTML = ``
+
+    if(priorities.length === 0) {
+        divContainer.innerHTML = `<p style="text-align:center;">No priorities found.</p>`
+        return 
+    }
+
+    const table = document.createElement('table')
+    table.className = 'table status'
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    `
+    const tbody = table.querySelector('tbody')
+
+    priorities.forEach(priority => {
+        const row = document.createElement('tr')
+        row.className = 'priority-item'
+        row.dataset.id = priority.id
+
+        row.innerHTML = `
+            <td>${priority.id}</td>
+            <td>${priority.name}</td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn edit-btn">Edit</button>
                     <button class="btn delete-btn">Delete</button>
                 </div>
             </td>

@@ -111,3 +111,58 @@ export async function fetchStatus() {
 
     return result.data
 }
+export async function createStatus(statusInfo) {
+    const response = await fetch('/api/status', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(statusInfo)
+    })
+    if(!response.ok) {
+        throw new Error('Error creating status')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
+export async function deleteStatus(statusID) {
+    const response = await fetch(`api/status/${statusID}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    if(!response.ok) {
+        throw new Error('Error deleting status')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+
+}
+
+
+// PRIORITY
+export async function fetchPriorities() {
+    const response = await fetch('/api/priority')
+    if(!response.ok) {
+        throw new Error('Error fetching priorities')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
