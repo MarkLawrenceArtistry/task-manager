@@ -292,11 +292,10 @@ document.addEventListener('DOMContentLoaded', () => {
         priorityListContainer.addEventListener('click', async (e) => {
             e.preventDefault()
 
-            
-            
             const target = e.target
             const priorityItem = target.closest('.priority-item');
-
+            if (!priorityItem) return;
+            
             const priorityID = priorityItem.dataset.id
 
             // for delete
