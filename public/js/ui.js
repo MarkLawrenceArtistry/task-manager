@@ -111,7 +111,7 @@ export const renderPriorities = (priorities, divContainer) => {
     }
 
     const table = document.createElement('table')
-    table.className = 'table status'
+    table.className = 'table priority'
     table.innerHTML = `
         <thead>
             <tr>

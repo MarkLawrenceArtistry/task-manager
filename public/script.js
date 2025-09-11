@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadPriorities() {
         try {
             const priorities = await api.fetchPriorities()
-            ui.renderStatus(priorities, priorityListContainer)
+            ui.renderPriorities(priorities, priorityListContainer)
         } catch(err) {
             console.error(err)
         }
@@ -288,22 +288,23 @@ document.addEventListener('DOMContentLoaded', () => {
             loadPriorities()
         })
     }
-    if(statusListContainer) {
-        statusListContainer.addEventListener('click', async (e) => {
+    if(priorityListContainer) {
+        priorityListContainer.addEventListener('click', async (e) => {
             e.preventDefault()
 
+            
+            
             const target = e.target
-            const statuskItem = target.closest('.status-item');
-            if (!statuskItem) return;
+            const priorityItem = target.closest('.priority-item');
 
-            const statusID = statuskItem.dataset.id
+            const priorityID = priorityItem.dataset.id
 
             // for delete
             if(target.classList.contains('delete-btn')) {
-                if(confirm('Are you sure you want to delete this status?')) {
+                if(confirm('Are you sure you want to delete this priority?')) {
                     try {
-                        await api.deleteStatus(statusID)
-                        loadStatus()
+                        await api.deletePriority(priorityID)
+                        loadPriorities()
                     } catch(err) {
                         console.error(err)
                     }
