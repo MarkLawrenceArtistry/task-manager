@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editPriorityModal = document.querySelector('#edit-priority-modal')
     const editPriorityForm = document.querySelector('#edit-priority-form')
     const closeEditPriorityModal = document.querySelector('#close-edit-priority-modal')
+    const priorityContainer = document.querySelector('#priority-container')
 
     
     let currentTaskID = null;
@@ -82,6 +83,14 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const status = await api.fetchStatus()
             ui.renderStatusToSelect(status, statusContainer)
+        } catch(err) {
+            console.error(err)
+        }
+    }
+    async function loadPriorityInSelect() {
+        try {
+            const priorities = await api.fetchPriorities()
+            ui.renderPriorityToSelect(priorities, priorityContainer)
         } catch(err) {
             console.error(err)
         }
@@ -211,6 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         })
+    }
+    if(priorityContainer) {
+        loadPriorityInSelect()
     }
 
 

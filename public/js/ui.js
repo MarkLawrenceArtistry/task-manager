@@ -98,7 +98,6 @@ export const renderStatus = (statuses, divContainer) => {
     
     divContainer.appendChild(table)
 }
-
 export const renderStatusToSelect = (statuses, divContainer) => {
     divContainer.innerHTML = ``
 
@@ -172,4 +171,31 @@ export const renderPriorities = (priorities, divContainer) => {
     });
     
     divContainer.appendChild(table)
+}
+export const renderPriorityToSelect = (priorities, divContainer) => {
+    divContainer.innerHTML = ``
+
+    if(priorities.length === 0) {
+        divContainer.innerHTML = `<p style="text-align:center;">No priority found.</p>`
+        return 
+    }
+
+    const select = document.createElement('select')
+    select.className = 'select priority'
+    select.id = 'task-priority'
+    
+    priorities.forEach(priority => {
+        const option = document.createElement('option')
+        option.className = 'select-priority-item'
+        option.value = priority.name
+
+        option.innerHTML = `
+            ${priority.name}
+        `
+
+        select.appendChild(option)
+    });
+
+    divContainer.appendChild(select)
+    
 }

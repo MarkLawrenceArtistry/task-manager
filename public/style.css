@@ -192,7 +192,7 @@
     margin-bottom: 5px;
 }
 
-.form input, .form button {
+.form input, .form button, select {
     width: 100%;
     padding: 15px;
     border: none;
