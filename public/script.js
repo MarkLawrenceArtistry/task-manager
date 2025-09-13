@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusListContainer = document.querySelector('#status-list-container')
     const priorityListContainer = document.querySelector('#priority-list-container')
 
+
     // TASK
     const addTaskBtn = document.querySelector('#add-task-btn')
     const addTaskModal = document.querySelector('#add-task-modal')
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateTaskModal = document.querySelector('#update-task-modal')
     const updateTaskForm = document.querySelector('#update-task-form')
     const closeUpdateTaskModal = document.querySelector('#close-update-task-modal')
+
 
     // STATUS
     const addStatusBtn = document.querySelector('#add-status-btn')
@@ -27,11 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeEditStatusModal = document.querySelector('#close-edit-status-modal')
 
 
-    // STATUS
+    // PRIORITY
     const addPriorityBtn = document.querySelector('#add-priority-btn')
     const addPriorityModal = document.querySelector('#add-priority-modal')
     const addPriorityForm = document.querySelector('#add-priority-form')
     const closeAddPriorityModal = document.querySelector('#close-add-priority-modal')
+    const editPriorityModal = document.querySelector('#edit-priority-modal')
+    const editPriorityForm = document.querySelector('#edit-priority-form')
+    const closeEditPriorityModal = document.querySelector('#close-edit-priority-modal')
+
     
     let currentTaskID = null;
     let currentStatusID = null;
@@ -341,26 +347,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // for edit
-            // if(target.classList.contains('edit-btn')) {
-            //     try {
-            //         currentTaskID = taskID
-            //         updateTaskModal.style.display = 'flex'
-            //     } catch(err) {
-            //         console.error(err)
-            //     }
-            // }
+            if(target.classList.contains('edit-btn')) {
+                try {
+                    currentPriorityID = priorityID
+                    editPriorityModal.style.display = 'flex'
+                } catch(err) {
+                    console.error(err)
+                }
+            }
+        })
+    }
+    if(editPriorityForm) {
+        editPriorityForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const priorityInfo = {
+                name: document.querySelector('#edit-priority-name').value
+            }
+
+            try {
+                await api.updatePriority(currentPriorityID, priorityInfo)
+                alert('Updated priority successfully')
+                closeModal(editPriorityModal)
+            } catch(err) {
+                console.error(err)
+            }
+
+            loadPriorities()
+        })
+    }
+    if(closeEditPriorityModal) {
+        closeEditPriorityModal.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            closeModal(editPriorityModal)
         })
     }
 
 
 
     // CALLERS
-    if(window.location.pathname.endsWith("index.html")) {
-        loadTasks()
-    }
     if(window.location.pathname.endsWith("config.html")) {
         loadStatus()
         loadPriorities()
+    } else {
+        loadTasks()
     }
 })

@@ -225,3 +225,23 @@ export async function deletePriority(priorityID) {
     return result.data
 
 }
+export async function updatePriority(currentPriorityID, priorityInfo) {
+    const response = await fetch(`/api/priority/${currentPriorityID}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(priorityInfo)
+    })
+
+    if(!response.ok) {
+        throw new Error('Error updating priority')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
