@@ -150,6 +150,26 @@ export async function deleteStatus(statusID) {
     return result.data
 
 }
+export async function updateStatus(currentStatusID, statusInfo) {
+    const response = await fetch(`/api/status/${currentStatusID}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(statusInfo)
+    })
+
+    if(!response.ok) {
+        throw new Error('Error updating status')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
 
 
 // PRIORITY

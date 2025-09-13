@@ -22,6 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const addStatusModal = document.querySelector('#add-status-modal')
     const addStatusForm = document.querySelector('#add-status-form')
     const closeAddStatusModal = document.querySelector('#close-add-status-modal')
+    const editStatusModal = document.querySelector('#edit-status-modal')
+    const editStatusForm = document.querySelector('#edit-status-form')
+    const closeEditStatusModal = document.querySelector('#close-edit-status-modal')
+
 
     // STATUS
     const addPriorityBtn = document.querySelector('#add-priority-btn')
@@ -30,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeAddPriorityModal = document.querySelector('#close-add-priority-modal')
     
     let currentTaskID = null;
+    let currentStatusID = null;
+    let currentPriorityID = null;
 
 
 
@@ -240,15 +246,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // for edit
-            // if(target.classList.contains('edit-btn')) {
-            //     try {
-            //         currentTaskID = taskID
-            //         updateTaskModal.style.display = 'flex'
-            //     } catch(err) {
-            //         console.error(err)
-            //     }
-            // }
+            if(target.classList.contains('edit-btn')) {
+                try {
+                    currentStatusID = statusID
+                    editStatusModal.style.display = 'flex'
+                } catch(err) {
+                    console.error(err)
+                }
+            }
+        })
+    }
+    if(closeEditStatusModal) {
+        closeEditStatusModal.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            closeModal(editStatusModal)
+        })
+    }
+    if(editStatusForm) {
+        editStatusForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const statusInfo = {
+                name: document.querySelector('#edit-status-name').value
+            }
+
+            try {
+                await api.updateStatus(currentStatusID, statusInfo)
+                alert('Updated status successfully')
+                closeModal(editStatusModal)
+            } catch(err) {
+                console.error(err)
+            }
+
+            loadStatus()
         })
     }
 
