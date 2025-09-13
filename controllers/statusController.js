@@ -22,7 +22,7 @@ const createStatus = (req, res) => {
     })
 }
 
-// for GET (all) priority
+// for GET (all) status
 const getAllStatus = (req, res) => {
     const query = `
         SELECT * FROM status
@@ -36,6 +36,28 @@ const getAllStatus = (req, res) => {
     })
 }
 
+// for GET (single) status
+const getStatus = (req, res) => {
+    const { id } = req.params
+    const query = `
+        SELECT * FROM status
+        WHERE id = ?
+    `
+    const params = [id]
+    db.get(query, params, (err, row) => {
+        if(err) {
+            return res.status(500).json({success:false,data:err.message})
+        }
+        
+        if(!row) {
+            return res.status(404).json({success:false,data:"Status not found."})
+        } else {
+            res.status(200).json({success:true,data:row})
+        }
+        
+    })
+}
+
 // for PUT
 const updateStatus = (req, res) => {
     const { id } = req.params
@@ -43,7 +65,7 @@ const updateStatus = (req, res) => {
     const query = `
         UPDATE status
         SET
-            name = COALESCE(?, name),
+            name = COALESCE(?, name)
         WHERE id = ?
     `
     const params = [name, id]
@@ -80,4 +102,4 @@ const deleteStatus = (req, res) => {
     })
 }
 
-module.exports = { createStatus, getAllStatus, updateStatus,  deleteStatus }
+module.exports = { createStatus, getStatus, getAllStatus, updateStatus,  deleteStatus }
