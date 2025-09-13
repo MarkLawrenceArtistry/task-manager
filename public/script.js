@@ -102,13 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
     if(addTaskForm) {
+        const taskProgressValue = document.querySelector('#task-progress')
+        const taskProgressRange = document.querySelector('#progress-range')
+        taskProgressValue.value = taskProgressRange.value
+        
+        taskProgressRange.addEventListener("input", (event) => {
+            taskProgressValue.value = event.target.value;
+        });
+
         addTaskForm.addEventListener('submit', async (e) => {
             e.preventDefault()
 
             const taskInfo = {
                 description: document.querySelector('#task-description').value,
                 priority: document.querySelector('#task-priority').value,
-                progress: document.querySelector('#task-progress').value,
+                progress: taskProgressValue.value,
                 status: document.querySelector('#task-status').value
             }
 
@@ -116,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 await api.createTask(taskInfo)
                 alert('Added task successfully')
                 closeModal(addTaskModal)
+                addTaskForm.reset()
             } catch(err) {
                 console.error(err)
             }

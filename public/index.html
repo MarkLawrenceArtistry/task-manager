@@ -57,11 +57,16 @@
                 <div>
                     <label class="small-lbl">Priority</label>
                     <input type="text" id="task-priority">
+                    
                 </div>
 
                 <div>
                     <label class="small-lbl">Progress</label>
-                    <input type="text" id="task-progress">
+                    <div class="progress-bar">
+                        <input type="range" min="0" max="100" value="0" id="progress-range">
+                        <input type="text" id="task-progress">
+                    </div>
+                    
                 </div>
 
                 <div>

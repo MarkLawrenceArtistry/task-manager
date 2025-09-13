@@ -204,6 +204,15 @@
     color: var(--secondary-clr);
 }
 
+.progress-bar {
+    display: flex;
+    gap: 1rem;
+}
+#progress-range { flex: 2; }
+#task-progress {
+    width: 50px;
+}
+
 
 
 /*    BUTTON STYLES    */
