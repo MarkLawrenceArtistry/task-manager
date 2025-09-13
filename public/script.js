@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editStatusModal = document.querySelector('#edit-status-modal')
     const editStatusForm = document.querySelector('#edit-status-form')
     const closeEditStatusModal = document.querySelector('#close-edit-status-modal')
+    const statusContainer = document.querySelector('#status-container')
 
 
     // PRIORITY
@@ -73,6 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const priorities = await api.fetchPriorities()
             ui.renderPriorities(priorities, priorityListContainer)
+        } catch(err) {
+            console.error(err)
+        }
+    }
+    async function loadStatusInSelect() {
+        try {
+            const status = await api.fetchStatus()
+            ui.renderStatusToSelect(status, statusContainer)
         } catch(err) {
             console.error(err)
         }
@@ -296,6 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             loadStatus()
         })
+    }
+    if(statusContainer) {
+        loadStatusInSelect()
     }
 
 

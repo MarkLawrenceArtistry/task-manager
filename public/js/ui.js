@@ -99,6 +99,34 @@ export const renderStatus = (statuses, divContainer) => {
     divContainer.appendChild(table)
 }
 
+export const renderStatusToSelect = (statuses, divContainer) => {
+    divContainer.innerHTML = ``
+
+    if(statuses.length === 0) {
+        divContainer.innerHTML = `<p style="text-align:center;">No status found.</p>`
+        return 
+    }
+
+    const select = document.createElement('select')
+    select.className = 'select status'
+    select.id = 'task-status'
+    
+    statuses.forEach(status => {
+        const option = document.createElement('option')
+        option.className = 'select-status-item'
+        option.value = status.name
+
+        option.innerHTML = `
+            ${status.name}
+        `
+
+        select.appendChild(option)
+    });
+
+    divContainer.appendChild(select)
+    
+}
+
 
 
 // PRIORITY
