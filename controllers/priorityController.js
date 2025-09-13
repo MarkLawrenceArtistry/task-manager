@@ -41,7 +41,7 @@ const updatePriority = (req, res) => {
     const { id } = req.params
     const { name } = req.body
     const query = `
-        UPDATE tasks
+        UPDATE priority
         SET
             name = COALESCE(?, name)
         WHERE id = ?
