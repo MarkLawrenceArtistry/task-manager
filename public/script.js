@@ -215,6 +215,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     currentTaskID = taskID
                     updateTaskModal.style.display = 'flex'
+
+                    const task = await api.fetchSingleTask(taskID)
+                    document.querySelector('#updated-task-description').value = task.description
+                    document.querySelector('#updated-task-priority').value = task.priority
+                    document.querySelector('#updated-task-progress').value = task.progress
+                    document.querySelector('#updated-task-status').value = task.status
                 } catch(err) {
                     console.error(err)
                 }
