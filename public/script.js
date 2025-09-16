@@ -393,6 +393,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     currentPriorityID = priorityID
                     editPriorityModal.style.display = 'flex'
+
+                    const priority = await api.fetchSinglePriority(priorityID)
+                    document.querySelector('#edit-priority-name').value = priority.name
                 } catch(err) {
                     console.error(err)
                 }
