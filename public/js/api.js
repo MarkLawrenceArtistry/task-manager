@@ -14,6 +14,20 @@ export async function fetchTasks() {
 
     return result.data
 }
+export async function fetchSingleTask(id) {
+    const response = await fetch(`api/tasks/${id}`)
+
+    if(!response.ok) {
+        throw new Error('Error fetching single task')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
 export async function createTask(taskInfo) {
     const response = await fetch('/api/tasks', {
         method: 'POST',
@@ -102,6 +116,20 @@ export async function fetchStatus() {
     const response = await fetch('/api/status')
     if(!response.ok) {
         throw new Error('Error fetching status')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
+export async function fetchSingleStatus(id) {
+    const response = await fetch(`api/status/${id}`)
+
+    if(!response.ok) {
+        throw new Error('Error fetching single status')
     }
 
     const result = await response.json()
