@@ -24,6 +24,26 @@ const createTask = (req, res) => {
     })
 }
 
+// for SEARCH
+const searchTask = (req, res) => {
+    const searchStr = req.query.description
+
+    if (!searchStr) {
+        return res.status(200).json({success:true,data:[]}); 
+    }
+
+    const query = `SELECT * FROM tasks WHERE description LIKE ?`
+    const params = [`%${searchStr}%`]
+
+    db.all(query, params, (err, rows) => {
+        if(err) {
+            return res.status(500).json({success:false,data:err.message})
+        }
+
+        res.status(200).json({success:true,data:rows})
+    })
+}
+
 // for GET (single) task
 const getTask = (req, res) => {
     const { id } = req.params
@@ -133,4 +153,4 @@ const deleteTask = (req, res) => {
     })
 }
 
-module.exports = { createTask, getTask, getAllTasks, updateTask, deleteTask, finishedTask }
+module.exports = { createTask, searchTask, getTask, getAllTasks, updateTask, deleteTask, finishedTask }

@@ -108,6 +108,19 @@ export async function updateTask(currentTaskID, taskInfo) {
 
     return result.data
 }
+export async function searchTask(searchStr) {
+    const response = await fetch(`/api/tasks/search?description=${encodeURIComponent(searchStr)}`)
+    if(!response.ok) {
+        throw new Error('Failed to search task.')
+    }
+    
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
 
 
 

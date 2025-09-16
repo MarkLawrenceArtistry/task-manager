@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateTaskModal = document.querySelector('#update-task-modal')
     const updateTaskForm = document.querySelector('#update-task-form')
     const closeUpdateTaskModal = document.querySelector('#close-update-task-modal')
+    const searchTaskInput = document.querySelector('#search-task-input')
 
 
     // STATUS
@@ -229,6 +230,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if(priorityContainer) {
         loadPriorityInSelect()
+    }
+    if(searchTaskInput) {
+        searchTaskInput.addEventListener('input', async (e) => {
+            e.preventDefault()
+
+            try {
+                const tasks = await api.searchTask(searchTaskInput.value)
+                if(tasks.length === 0) {
+                    loadTasks()
+                    return
+                }
+
+                ui.renderTasks(tasks, taskListContainer)
+            } catch(err) {
+                console.error(err)
+            }
+        })
     }
 
 
