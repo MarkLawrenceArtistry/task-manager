@@ -214,6 +214,20 @@ export async function fetchPriorities() {
 
     return result.data
 }
+export async function fetchSinglePriority(id) {
+    const response = await fetch(`api/priority/${id}`)
+
+    if(!response.ok) {
+        throw new Error('Error fetching single priority')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
 export async function createPriority(priorityInfo) {
     const response = await fetch('/api/priority', {
         method: 'POST',

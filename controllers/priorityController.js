@@ -22,6 +22,28 @@ const createPriority = (req, res) => {
     })
 }
 
+// for GET (single) priority
+const getPriority = (req, res) => {
+    const { id } = req.params
+    const query = `
+        SELECT * FROM priority
+        WHERE id = ?
+    `
+    const params = [id]
+    db.get(query, params, (err, row) => {
+        if(err) {
+            return res.status(500).json({success:false,data:err.message})
+        }
+        
+        if(!row) {
+            return res.status(404).json({success:false,data:"Priority not found."})
+        } else {
+            res.status(200).json({success:true,data:row})
+        }
+        
+    })
+}
+
 // for GET (all) priority
 const getAllPriorities = (req, res) => {
     const query = `
@@ -80,4 +102,4 @@ const deletePriority = (req, res) => {
     })
 }
 
-module.exports = { createPriority, getAllPriorities, updatePriority,  deletePriority }
+module.exports = { createPriority, getPriority, getAllPriorities, updatePriority,  deletePriority }
