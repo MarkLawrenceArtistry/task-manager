@@ -292,6 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     currentStatusID = statusID
                     editStatusModal.style.display = 'flex'
+
+                    const status = await api.fetchSingleStatus(statusID)
+                    document.querySelector('#edit-status-name').value = status.name
                 } catch(err) {
                     console.error(err)
                 }

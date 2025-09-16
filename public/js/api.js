@@ -125,6 +125,20 @@ export async function fetchStatus() {
 
     return result.data
 }
+export async function fetchSingleStatus(id) {
+    const response = await fetch(`api/status/${id}`)
+
+    if(!response.ok) {
+        throw new Error('Error fetching single status')
+    }
+
+    const result = await response.json()
+    if(!result.success) {
+        throw new Error(result.data)
+    }
+
+    return result.data
+}
 export async function createStatus(statusInfo) {
     const response = await fetch('/api/status', {
         method: 'POST',
