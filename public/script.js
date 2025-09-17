@@ -136,8 +136,14 @@ document.addEventListener('DOMContentLoaded', () => {
         addTaskForm.addEventListener('submit', async (e) => {
             e.preventDefault()
 
+            const taskDescription = document.querySelector('#task-description').value
+            if(taskDescription.trim().length === 0) {
+                alert('Description cannot be empty.')
+                return
+            }
+
             const taskInfo = {
-                description: document.querySelector('#task-description').value,
+                description: taskDescription,
                 priority: document.querySelector('#task-priority').value,
                 progress: taskProgressValue.value,
                 status: document.querySelector('#task-status').value
@@ -291,8 +297,14 @@ document.addEventListener('DOMContentLoaded', () => {
         addStatusForm.addEventListener('submit', async (e) => {
             e.preventDefault()
 
+            const statusName = document.querySelector('#status-name').value
+            if(statusName.trim().length === 0) {
+                alert('Status name cannot be empty.')
+                return
+            }
+
             const statusInfo = {
-                name: document.querySelector('#status-name').value
+                name: statusName
             }
 
             try {
@@ -392,8 +404,14 @@ document.addEventListener('DOMContentLoaded', () => {
         addPriorityForm.addEventListener('submit', async (e) => {
             e.preventDefault()
 
+            const priorityName = document.querySelector('#priority-name').value
+            if(priorityName.trim().length === 0) {
+                alert('Priority name cannot be empty.')
+                return
+            }
+
             const priorityInfo = {
-                name: document.querySelector('#priority-name').value
+                name: priorityName
             }
 
             try {
