@@ -98,7 +98,7 @@ export const renderStatus = (statuses, divContainer) => {
     
     divContainer.appendChild(table)
 }
-export const renderStatusToSelect = (statuses, divContainer) => {
+export const renderStatusToSelect = (statuses, divContainer, selectedStatus) => {
     divContainer.innerHTML = ``
 
     if(statuses.length === 0) {
@@ -114,6 +114,9 @@ export const renderStatusToSelect = (statuses, divContainer) => {
         const option = document.createElement('option')
         option.className = 'select-status-item'
         option.value = status.name
+        if(selectedStatus === status.name) {
+            option.setAttribute('selected', '')
+        }
 
         option.innerHTML = `
             ${status.name}
@@ -172,7 +175,7 @@ export const renderPriorities = (priorities, divContainer) => {
     
     divContainer.appendChild(table)
 }
-export const renderPriorityToSelect = (priorities, divContainer) => {
+export const renderPriorityToSelect = (priorities, divContainer, selectedPriority) => {
     divContainer.innerHTML = ``
 
     if(priorities.length === 0) {
@@ -188,6 +191,9 @@ export const renderPriorityToSelect = (priorities, divContainer) => {
         const option = document.createElement('option')
         option.className = 'select-priority-item'
         option.value = priority.name
+        if(selectedPriority === priority.name) {
+            option.setAttribute('selected', '')
+        }
 
         option.innerHTML = `
             ${priority.name}

@@ -129,6 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
             taskProgressValue.value = event.target.value;
         });
 
+        taskProgressRange.addEventListener("oninput", (event) => {
+            taskProgressValue.value = event.target.value;
+        });
+
         addTaskForm.addEventListener('submit', async (e) => {
             e.preventDefault()
 
@@ -152,6 +156,18 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
     if(updateTaskForm) {
+        const updateTaskProgressValue = document.querySelector('#updated-task-progress')
+        const updateTaskProgressRange = document.querySelector('#updated-progress-range')
+        updateTaskProgressValue.value = updateTaskProgressRange.value
+        
+        updateTaskProgressRange.addEventListener("input", (event) => {
+            updateTaskProgressValue.value = event.target.value;
+        });
+
+        updateTaskProgressRange.addEventListener("oninput", (event) => {
+            updateTaskProgressValue.value = event.target.value;
+        });
+
         updateTaskForm.addEventListener('submit', async (e) => {
             e.preventDefault()
 
@@ -160,11 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const taskInfo = {
                 description: document.querySelector('#updated-task-description').value || null,
                 priority: document.querySelector('#updated-task-priority').value || null,
-                progress: Number(document.querySelector('#updated-task-progress').value) || null,
+                progress: updateTaskProgressValue.value,
                 status: document.querySelector('#updated-task-status').value || null
             }
-
-            console.log(taskInfo)
 
             try {
                 await api.updateTask(currentTaskID, taskInfo)
@@ -219,9 +233,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const task = await api.fetchSingleTask(taskID)
                     document.querySelector('#updated-task-description').value = task.description
-                    document.querySelector('#updated-task-priority').value = task.priority
+                    document.querySelector('#updated-progress-range').value = task.progress
                     document.querySelector('#updated-task-progress').value = task.progress
-                    document.querySelector('#updated-task-status').value = task.status
+
+                    const selectedStatus = task.status
+                    const status = await api.fetchStatus()
+                    ui.renderStatusToSelect(status, document.querySelector('#updated-status-container'), selectedStatus)
+
+                    const selectedPriority = task.priority
+                    const priorities = await api.fetchPriorities()
+                    ui.renderPriorityToSelect(priorities, document.querySelector('#updated-priority-container'), selectedPriority)
+                    
                 } catch(err) {
                     console.error(err)
                 }

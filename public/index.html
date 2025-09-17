@@ -93,17 +93,25 @@
                 
                 <div>
                     <label class="small-lbl">Priority</label>
-                    <input type="text" id="updated-task-priority">
+                    <div id="updated-priority-container">
+
+                    </div>
                 </div>
 
                 <div>
                     <label class="small-lbl">Progress</label>
-                    <input type="text" id="updated-task-progress">
+                    <div class="progress-bar">
+                        <input type="range" min="0" max="100" value="0" id="updated-progress-range">
+                        <input type="text" id="updated-task-progress">
+                    </div>
+                    
                 </div>
 
                 <div>
                     <label class="small-lbl">Status</label>
-                    <input type="text" id="updated-task-status">
+                    <div id="updated-status-container">
+
+                    </div>
                 </div>
 
                 <div>
