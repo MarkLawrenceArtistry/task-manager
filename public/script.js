@@ -292,14 +292,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if(searchTaskInput) {
         searchTaskInput.addEventListener('input', async (e) => {
+            if(searchTaskInput.value === '') {
+                loadTasks()
+            }
             e.preventDefault()
 
             try {
                 const tasks = await api.searchTask(searchTaskInput.value)
-                if(tasks.length === 0) {
-                    loadTasks()
-                    return
-                }
 
                 ui.renderTasks(tasks, taskListContainer)
             } catch(err) {
