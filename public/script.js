@@ -41,6 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeEditPriorityModal = document.querySelector('#close-edit-priority-modal')
     const priorityContainer = document.querySelector('#priority-container')
 
+
+    // BODY
+    const body = document.body;
+    const hamburgerBtn = document.querySelector("#hamburger-btn");
+    const sidebar = document.querySelector(".sidebar");
+
     
     let currentTaskID = null;
     let currentStatusID = null;
@@ -52,6 +58,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = (modal) => {
         modal.style.display = 'none'
     }
+
+    if(hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); 
+            
+            sidebar.classList.toggle('show');
+            body.classList.toggle('sidebar-open');
+        });
+    }
+
+    body.addEventListener('click', (event) => {
+        if (body.classList.contains('sidebar-open')) {
+            if (!sidebar.contains(event.target)) {
+                sidebar.classList.remove('show');
+                body.classList.remove('sidebar-open');
+            }
+        }
+    });
+
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && body.classList.contains('sidebar-open')) {
+            sidebar.classList.remove('show');
+            body.classList.remove('sidebar-open');
+        }
+    });
 
 
 
