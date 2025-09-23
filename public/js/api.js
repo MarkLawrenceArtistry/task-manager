@@ -319,3 +319,18 @@ export async function loginUser(credentials) {
     const result = await response.json()
     return result
 }
+
+export async function registerUser(credentials) {
+    const response = await fetch('api/auth/register', {
+        method: 'POST',
+        headers: { "Content-Type": 'application/json' },
+        body: JSON.stringify(credentials)
+    })
+
+    if(!response.ok) {
+        throw new Error('Internal Server Error (500)')
+    }
+
+    const result = await response.json()
+    return result
+}

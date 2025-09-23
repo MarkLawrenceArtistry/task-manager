@@ -48,8 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.querySelector(".sidebar");
 
     
-    // LOGIN
+    // AUTH
     const loginForm = document.querySelector('#login-form');
+    const registerForm = document.querySelector('#register-user-form');
+    const logoutBtn = document.querySelector('#logout-btn');
 
 
     // VARIABLES
@@ -524,11 +526,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+    // AUTH
+    if(loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const credentials = {
+                username: document.querySelector('#username-login').value,
+                password: document.querySelector('#password-login').value
+            }
+
+            try {
+                await api.loginUser(credentials)
+                alert('Welcome back!')
+                sessionStorage.setItem('isLoggedIn', 'true')
+                window.location.href = 'dashboard.html'
+            } catch (err) {
+                alert('Wrong credentials')
+                loginForm.reset()
+                console.errror(err)
+            }
+        })
+    }
+    if(registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const credentials = {
+                username: document.querySelector('#username-register').value,
+                password: document.querySelector('#password-register').value
+            }
+
+            try {
+                await api.registerUser(credentials)
+                alert('Account created successfully!')
+                registerForm.reset()
+            } catch (err) {
+                alert('Error! check console')
+                registerForm.reset()
+                console.errror(err)
+            }
+        })
+    }
+    if(logoutBtn) {
+        logoutBtn.addEventListener('click', async (e) => {
+            e.preventDefault()
+
+            if(confirm('Are you sure you want to logout tho?')) {
+                sessionStorage.clear()
+                window.location.href = 'index.html'
+            }
+        })
+    }
+
+
+
     // CALLERS
     if(window.location.pathname.endsWith("config.html")) {
         loadStatus()
         loadPriorities()
-    } else {
+    }
+    
+    if(window.location.pathname.endsWith("dashboard.html")) {
         loadTasks()
+    }
+
+    if(!window.location.pathname.endsWith('index.html') && !sessionStorage.getItem('isLoggedIn')) {
+        alert('Session does not exist. Redirecting..')
+        window.location.href = 'index.html'
     }
 })

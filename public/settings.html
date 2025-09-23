@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Task Manager App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <div class="sidebar-header">
+                    <img src="assets/logo.png" alt="Task Manager App Logo" class="sidebar-logo">
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-title">Menu</span>
+                    <a href="dashboard.html" class="nav-link">Dashboard</a>
+                    <a href="config.html" class="nav-link">Configuration</a>
+                </div>
+                <div class="nav-group">
+                    <a href="settings.html" class="nav-link active">Settings</a>
+                    <a class="nav-link" id="logout-btn">Logout</a>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header" style="justify-content: space-between;">
+                <button class="hamburger-btn" id="hamburger-btn">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <h1 class="main-title">Settings</h1>
+            </header>
+
+            <section class="content-card">
+                <form id="register-user-form">
+                    <div>
+                        <label class="small-lbl">Username</label>
+                        <input type="text" id="username-register" placeholder="Admin" required autofocus>
+                    </div>
+                    <div>
+                        <label class="small-lbl">Password</label>
+                        <input type="password" id="password-register" placeholder="123" required>
+                    </div>
+                    <div>
+                        <button type="submit">Register</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js" type="module"></script>
+</body>
+</html>
