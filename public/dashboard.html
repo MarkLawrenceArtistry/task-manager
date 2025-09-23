@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Task Manager App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <div class="sidebar-header">
+                    <img src="assets/logo.png" alt="Task Manager App Logo" class="sidebar-logo">
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-title">Menu</span>
+                    <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                    <a href="config.html" class="nav-link">Configuration</a>
+                </div>
+                <div class="nav-group">
+                    <a href="settings.html" class="nav-link">Settings</a>
+                    <a href="index.html" class="nav-link">Logout</a>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header" style="justify-content: space-between;">
+                <button class="hamburger-btn" id="hamburger-btn">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <h1 class="main-title">Welcome, user!</h1>
+                <button id="add-task-btn" class="btn btn-primary">Add New Task</button>
+            </header>
+
+            <section class="content-card">
+                <div class="controls-container">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search via description.." id="search-task-input">
+                    </div>
+                </div>
+                <div id="task-list-container" class="table-container">
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="add-task-modal" class="modal" style="display: none">
+        <div class="modal-content">
+            <span class="close-btn" id="close-add-task-modal">&times;</span>
+            <form id="add-task-form" class="form">
+                <div>
+                    <label class="small-lbl">Description</label>
+                    <input type="text" id="task-description" required>
+                </div>
+                
+                <div>
+                    <label class="small-lbl">Priority</label>
+                    <div id="priority-container">
+
+                    </div>
+                </div>
+
+                <div>
+                    <label class="small-lbl">Progress</label>
+                    <div class="progress-bar">
+                        <input type="range" min="0" max="100" value="0" id="progress-range">
+                        <input type="text" id="task-progress">
+                    </div>
+                    
+                </div>
+
+                <div>
+                    <label class="small-lbl">Status</label>
+                    <div id="status-container">
+
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="update-task-modal" class="modal" style="display: none">
+        <div class="modal-content">
+            <span class="close-btn" id="close-update-task-modal">&times;</span>
+            <form id="update-task-form" class="form">
+                <div>
+                    <label class="small-lbl">Description</label>
+                    <input type="text" id="updated-task-description">
+                </div>
+                
+                <div>
+                    <label class="small-lbl">Priority</label>
+                    <div id="updated-priority-container">
+
+                    </div>
+                </div>
+
+                <div>
+                    <label class="small-lbl">Progress</label>
+                    <div class="progress-bar">
+                        <input type="range" min="0" max="100" value="0" id="updated-progress-range">
+                        <input type="text" id="updated-task-progress">
+                    </div>
+                    
+                </div>
+
+                <div>
+                    <label class="small-lbl">Status</label>
+                    <div id="updated-status-container">
+
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js" type="module"></script>
+</body>
+</html>

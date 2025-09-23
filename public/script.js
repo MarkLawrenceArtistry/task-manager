@@ -48,6 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.querySelector(".sidebar");
 
     
+    // LOGIN
+    const loginForm = document.querySelector('#login-form');
+
+
+    // VARIABLES
     let currentTaskID = null;
     let currentStatusID = null;
     let currentPriorityID = null;

@@ -159,6 +159,84 @@
 
 
 
+
+/*   LOGIN STYLES    */
+.public-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--primary-clr);
+}
+
+.login-card {
+    display: flex;
+    height: 80vh;
+    width: 60vw;
+}
+
+.login-card .divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.login-card .divider div {
+    display: flex;
+    flex-direction: column;
+}
+
+.divider.welcome {
+    background-color: var(--gray-clr);
+    color: var(--secondary-clr);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px 0 0 10px;
+}
+
+.divider.form {
+    background-color: var(--light-gray-clr);
+    border-radius: 0 10px 10px 0;
+    color: var(--secondary-clr);
+}
+
+.divider.welcome div {
+    margin: 20px;
+}
+
+#login-form input[type="text"],
+#login-form input[type="password"] {
+    padding: 10px;
+    width: 100%;
+    margin-top: 0;
+    border: 1px solid var(--light-tertiary-clr);
+    border-radius: 5px;
+    background-color: var(--light-gray-clr);
+    color: var(--secondary-clr);
+}
+
+.login-form-div {
+    width: 300px;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 20px;
+}
+
+#login-form button {
+    background-color: var(--tertiary-clr);
+    color: var(--secondary-clr);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+
+
 /*    MODAL STYLES    */
 .modal {
     display: none;
@@ -323,5 +401,22 @@ th, td {
     }
     #task-list-container {
         height: 75vh;
+    }
+
+    .login-card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #hero-img {
+        height: 40px;
+    }
+
+    .divider.welcome {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .divider.form {
+        border-radius: 0 0 10px 10px;
     }
 }
