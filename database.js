@@ -32,6 +32,14 @@ const initDB = () => {
                 status TEXT NOT NULL
             )
         `
+
+        const users = `
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL,
+                password_hash TEXT NOT NULL
+            )
+        `
         
         // priority
         db.run(priority, (err) => {
@@ -57,6 +65,15 @@ const initDB = () => {
                 console.log("ERROR CREATING tasks TABLE: " + err.message)
             } else {
                 console.log("tasks TABLE CREATED/ALREADY EXISTS.")
+            }
+        })
+
+        // users
+        db.run(users, (err) => {
+            if(err) {
+                console.log("ERROR CREATING users TABLE: " + err.message)
+            } else {
+                console.log("users TABLE CREATED/ALREADY EXISTS.")
             }
         })
     })
