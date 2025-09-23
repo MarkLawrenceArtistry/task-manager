@@ -213,6 +213,7 @@ export async function updateStatus(currentStatusID, statusInfo) {
 }
 
 
+
 // PRIORITY
 export async function fetchPriorities() {
     const response = await fetch('/api/priority')
@@ -299,4 +300,22 @@ export async function updatePriority(currentPriorityID, priorityInfo) {
     }
 
     return result.data
+}
+
+
+
+// AUTH
+export async function loginUser(credentials) {
+    const response = await fetch('api/auth/login', {
+        method: 'POST',
+        headers: { "Content-Type": 'application/json' },
+        body: JSON.stringify(credentials)
+    })
+
+    if(!response.ok) {
+        throw new Error('Invalid username or password.')
+    }
+
+    const result = await response.json()
+    return result
 }
