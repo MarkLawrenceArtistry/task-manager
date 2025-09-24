@@ -375,17 +375,42 @@ th, td {
 /*    INDICATOR STYLES    */
 .high {
     background-color: #f1996a;
+    color: var(--light-gray-clr);
+}
+
+.very-high {
+    background-color: #fa8f86;
+    color: var(--light-gray-clr);
+}
+
+.medium {
+    background-color: #ffe187;
+    color: var(--light-gray-clr);
 }
 
 .low {
     background-color: #7e9ff0;
+    color: var(--light-gray-clr);
 }
 
 .indicator {
     padding: 10px;
     border-radius: 5px;
     text-align: center;
-    color: var(--light-gray-clr);
+    
+}
+
+.progress-bar-container {
+    height: 5px;
+    width: 100px;
+    background-color: var(--light-gray-clr);
+    border-radius: 15px;
+}
+
+.progress-bar-value {
+    background-color: var(--tertiary-clr);
+    height: 5px;
+    border-radius: 15px;
 }
 
 

@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadStatusInSelect() {
         try {
             const status = await api.fetchStatus()
-            ui.renderStatusToSelect(status, statusContainer)
+            ui.renderStatusToSelect(status, statusContainer, 'task-status')
         } catch(err) {
             console.error(err)
         }
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadPriorityInSelect() {
         try {
             const priorities = await api.fetchPriorities()
-            ui.renderPriorityToSelect(priorities, priorityContainer)
+            ui.renderPriorityToSelect(priorities, priorityContainer, 'task-priority')
         } catch(err) {
             console.error(err)
         }
@@ -202,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(updateTaskForm) {
         const updateTaskProgressValue = document.querySelector('#updated-task-progress')
         const updateTaskProgressRange = document.querySelector('#updated-progress-range')
-        updateTaskProgressValue.value = updateTaskProgressRange.value
         
         updateTaskProgressRange.addEventListener("input", (event) => {
             updateTaskProgressValue.value = event.target.value;
@@ -212,10 +211,11 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTaskProgressValue.value = event.target.value;
         });
 
+
+        // FETCHING PRIORITY FROM DROPDOWN
+
         updateTaskForm.addEventListener('submit', async (e) => {
             e.preventDefault()
-
-            console.log(document.querySelector('#update-task-description'))
 
             const taskInfo = {
                 description: document.querySelector('#updated-task-description').value || null,
@@ -282,11 +282,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const selectedStatus = task.status
                     const status = await api.fetchStatus()
-                    ui.renderStatusToSelect(status, document.querySelector('#updated-status-container'), selectedStatus)
+                    ui.renderStatusToSelect(status, document.querySelector('#updated-status-container'), 'updated-task-status', selectedStatus)
 
                     const selectedPriority = task.priority
                     const priorities = await api.fetchPriorities()
-                    ui.renderPriorityToSelect(priorities, document.querySelector('#updated-priority-container'), selectedPriority)
+                    ui.renderPriorityToSelect(priorities, document.querySelector('#updated-priority-container'), 'updated-task-priority', selectedPriority)
                     
                 } catch(err) {
                     console.error(err)

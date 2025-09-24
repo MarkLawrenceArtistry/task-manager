@@ -37,6 +37,10 @@ export const renderTasks = (tasks, divContainer) => {
             taskPriorityClass += 'high'
         } else if(task.priority === 'Low') {
             taskPriorityClass += 'low'
+        } else if(task.priority === 'Medium') {
+            taskPriorityClass += 'medium'
+        } else if(task.priority === 'Very High') {
+            taskPriorityClass += 'very-high'
         }
 
         row.innerHTML = `
@@ -47,7 +51,14 @@ export const renderTasks = (tasks, divContainer) => {
                     ${task.priority}
                 </div>
             </td>
-            <td>${task.progress}%</td>
+            
+            <td>
+                <p style="text-align: center; margin-bottom: 5px;">${task.progress}%</p>
+                <div class="progress-bar-container" style="width: 100%;">
+                    <div class="progress-bar-value" style="width: ${task.progress}%;"></div>
+                </div>
+            </td>
+
             <td>${task.status}</td>
             <td>
                 <div class="action-buttons">
@@ -109,7 +120,7 @@ export const renderStatus = (statuses, divContainer) => {
     
     divContainer.appendChild(table)
 }
-export const renderStatusToSelect = (statuses, divContainer, selectedStatus) => {
+export const renderStatusToSelect = (statuses, divContainer, elementId, selectedStatus) => {
     divContainer.innerHTML = ``
 
     if(statuses.length === 0) {
@@ -119,7 +130,7 @@ export const renderStatusToSelect = (statuses, divContainer, selectedStatus) => 
 
     const select = document.createElement('select')
     select.className = 'select status'
-    select.id = 'task-status'
+    select.id = elementId
     
     statuses.forEach(status => {
         const option = document.createElement('option')
@@ -186,7 +197,7 @@ export const renderPriorities = (priorities, divContainer) => {
     
     divContainer.appendChild(table)
 }
-export const renderPriorityToSelect = (priorities, divContainer, selectedPriority) => {
+export const renderPriorityToSelect = (priorities, divContainer, elementId, selectedPriority) => {
     divContainer.innerHTML = ``
 
     if(priorities.length === 0) {
@@ -196,7 +207,7 @@ export const renderPriorityToSelect = (priorities, divContainer, selectedPriorit
 
     const select = document.createElement('select')
     select.className = 'select priority'
-    select.id = 'task-priority'
+    select.id = elementId
     
     priorities.forEach(priority => {
         const option = document.createElement('option')
