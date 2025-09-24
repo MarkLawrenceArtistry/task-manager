@@ -31,11 +31,23 @@ export const renderTasks = (tasks, divContainer) => {
         row.className = 'task-item'
         row.dataset.id = task.id
 
+        // Custom Styling
+        let taskPriorityClass = 'indicator '
+        if(task.priority === 'High') {
+            taskPriorityClass += 'high'
+        } else if(task.priority === 'Low') {
+            taskPriorityClass += 'low'
+        }
+
         row.innerHTML = `
             <td>${task.id}</td>
             <td>${task.description}</td>
-            <td>${task.priority}</td>
-            <td>${task.progress}</td>
+            <td>
+                <div class="${taskPriorityClass}">
+                    ${task.priority}
+                </div>
+            </td>
+            <td>${task.progress}%</td>
             <td>${task.status}</td>
             <td>
                 <div class="action-buttons">
