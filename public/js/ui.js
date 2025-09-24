@@ -51,9 +51,9 @@ export const renderTasks = (tasks, divContainer) => {
             <td>${task.status}</td>
             <td>
                 <div class="action-buttons">
-                    <button class="btn edit-btn">Edit</button>
-                    <button class="btn done-btn">Done</button>
-                    <button class="btn delete-btn">Delete</button>
+                    <img src="../assets/edit.png" class="image-btn edit-btn">
+                    <img src="../assets/check-mark.png" class="image-btn done-btn">
+                    <img src="../assets/trash.png" class="image-btn delete-btn">
                 </div>
             </td>
         `
@@ -62,9 +62,8 @@ export const renderTasks = (tasks, divContainer) => {
     });
     
     divContainer.appendChild(table)
+    
 }
-
-
 
 // STATUS
 export const renderStatus = (statuses, divContainer) => {
