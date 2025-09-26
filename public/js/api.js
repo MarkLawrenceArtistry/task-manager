@@ -2,7 +2,21 @@
 
 // TASKS
 export async function fetchTasks() {
-    const response = await fetch('/api/tasks')
+    const token = localStorage.getItem('token')
+
+    const response = await fetch('/api/tasks', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    if(response.status === 401) {
+        alert('Your session has expired. Please log in again.')
+        localStorage.removeItem('token')
+        window.location.href = 'index.html'
+        throw new Error('Unauthorized')
+    }
+
     if(!response.ok) {
         throw new Error('Error fetching tasks')
     }

@@ -60,6 +60,8 @@ const login = (req, res) => {
                 const payload = { id: user.id, username: user.username }
                 const secret = process.env.JWT_SECRET
                 const options = { expiresIn: '1hr' }
+
+                console.log('The secret being used is:', secret);
                 const token = jwt.sign(payload, secret, options)
 
                 return res.status(200).json({success:true,data:"LOGIN SUCCESSFUL.",token:token})

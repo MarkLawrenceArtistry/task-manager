@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await api.loginUser(credentials)
 
                 if(result.success && result.token) {
-                    localStorage.setItem('toke', result.token)
+                    localStorage.setItem('token', result.token)
                     alert('Welcome back!')
                     window.location.href = 'dashboard.html'
                 } else {
@@ -551,7 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (err) {
                 alert('Wrong credentials')
                 loginForm.reset()
-                console.errror(err)
+                console.error(err)
             }
         })
     }
@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (err) {
                 alert('Error! check console')
                 registerForm.reset()
-                console.errror(err)
+                console.error(err)
             }
         })
     }
@@ -598,8 +598,8 @@ document.addEventListener('DOMContentLoaded', () => {
         loadTasks()
     }
 
-    if(!window.location.pathname.endsWith('index.html') && !sessionStorage.getItem('isLoggedIn')) {
-        alert('Session does not exist. Redirecting..')
+    if(!window.location.pathname.endsWith('index.html') && !localStorage.getItem('token')) {
+        alert('You must be logged in to view this page. Redirecting..')
         window.location.href = 'index.html'
     }
 })
