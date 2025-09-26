@@ -538,10 +538,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                await api.loginUser(credentials)
-                alert('Welcome back!')
-                sessionStorage.setItem('isLoggedIn', 'true')
-                window.location.href = 'dashboard.html'
+                const result = await api.loginUser(credentials)
+
+                if(result.success && result.token) {
+                    localStorage.setItem('toke', result.token)
+                    alert('Welcome back!')
+                    window.location.href = 'dashboard.html'
+                } else {
+                    alert(result.data || 'Wrong credentials')
+                    loginForm.reset()
+                }
             } catch (err) {
                 alert('Wrong credentials')
                 loginForm.reset()

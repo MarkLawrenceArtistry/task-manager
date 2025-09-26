@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const tasksController = require('../controllers/tasksController')
+const { protect } = require('../middleware/authMiddleware')
 
+router.use(protect)
 router.post('/', tasksController.createTask)
 router.get('/', tasksController.getAllTasks)
 router.get('/search', tasksController.searchTask)

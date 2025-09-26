@@ -1,5 +1,6 @@
 const { db } = require('../database')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const register = (req, res) => {
     const { username, password } = req.body
@@ -56,7 +57,12 @@ const login = (req, res) => {
             }
 
             if(result) {
-                return res.status(200).json({success:true,data:"LOGIN SUCCESSFUL."})
+                const payload = { id: user.id, username: user.username }
+                const secret = process.env.JWT_SECRET
+                const options = { expiresIn: '1hr' }
+                const token = jwt.sign(payload, secret, options)
+
+                return res.status(200).json({success:true,data:"LOGIN SUCCESSFUL.",token:token})
             } else {
                 return res.status(401).json({success:false,data:"Invalid username or password."})
             }
