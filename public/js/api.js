@@ -29,7 +29,13 @@ export async function fetchTasks() {
     return result.data
 }
 export async function fetchSingleTask(id) {
-    const response = await fetch(`api/tasks/${id}`)
+    const token = localStorage.getItem('token')
+    const response = await fetch(`api/tasks/${id}`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
 
     if(!response.ok) {
         throw new Error('Error fetching single task')
@@ -43,13 +49,23 @@ export async function fetchSingleTask(id) {
     return result.data
 }
 export async function createTask(taskInfo) {
+    const token = localStorage.getItem('token')
     const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(taskInfo)
     })
+
+    if (response.status === 401) {
+        alert('Your session has expired. Please log in again.');
+        localStorage.removeItem('token');
+        window.location.href = 'index.html';
+        throw new Error('Unauthorized');
+    }
+
     if(!response.ok) {
         throw new Error('Error creating tasks')
     }
@@ -62,10 +78,13 @@ export async function createTask(taskInfo) {
     return result.data
 }
 export async function finishTask(currentTaskID) {
+    const token = localStorage.getItem('token')
+
     const response = await fetch(`/api/tasks/${currentTaskID}`, {
         method: 'PATCH',
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
             status: 'Finished'
@@ -83,10 +102,13 @@ export async function finishTask(currentTaskID) {
     return result.data
 }
 export async function deleteTask(currentTaskID) {
+    const token = localStorage.getItem('token')
+
     const response = await fetch(`api/tasks/${currentTaskID}`, {
         method: 'DELETE',
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         }
     })
 
@@ -103,10 +125,13 @@ export async function deleteTask(currentTaskID) {
 
 }
 export async function updateTask(currentTaskID, taskInfo) {
+    const token = localStorage.getItem('token')
+
     const response = await fetch(`/api/tasks/${currentTaskID}`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(taskInfo)
     })
@@ -123,7 +148,13 @@ export async function updateTask(currentTaskID, taskInfo) {
     return result.data
 }
 export async function searchTask(searchStr) {
-    const response = await fetch(`/api/tasks/search?description=${encodeURIComponent(searchStr)}`)
+    const token = localStorage.getItem('token')
+
+    const response = await fetch(`/api/tasks/search?description=${encodeURIComponent(searchStr)}`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
     if(!response.ok) {
         throw new Error('Failed to search task.')
     }

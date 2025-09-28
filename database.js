@@ -29,7 +29,9 @@ const initDB = () => {
                 description TEXT NOT NULL,
                 priority TEXT NOT NULL,
                 progress INT NOT NULL,
-                status TEXT NOT NULL
+                status TEXT NOT NULL,
+                user_id INTEGER NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users(id)
             )
         `
 

@@ -3,11 +3,12 @@ const { db } = require('../database')
 // for POST
 const createTask = (req, res) => {
     const { description, priority, progress, status } = req.body
+    const userId = req.user.id; 
     const query = `
-        INSERT INTO tasks (description, priority, progress, status)
-        VALUES (?, ?, ?, ?)
-    `
-    const params = [description, priority, progress, status]
+        INSERT INTO tasks (description, priority, progress, status, user_id)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+    const params = [description, priority, progress, status, userId];
 
     db.run(query, params, function(err) {
         if(err) {
@@ -27,13 +28,14 @@ const createTask = (req, res) => {
 // for SEARCH
 const searchTask = (req, res) => {
     const searchStr = req.query.description
+    const userId = req.user.id;
 
     if (!searchStr) {
         return res.status(200).json({success:true,data:[]}); 
     }
 
-    const query = `SELECT * FROM tasks WHERE description LIKE ?`
-    const params = [`%${searchStr}%`]
+    const query = `SELECT * FROM tasks WHERE description LIKE ? AND user_id = ?`;
+    const params = [`%${searchStr}%`, userId];
 
     db.all(query, params, (err, rows) => {
         if(err) {
@@ -47,11 +49,11 @@ const searchTask = (req, res) => {
 // for GET (single) task
 const getTask = (req, res) => {
     const { id } = req.params
-    const query = `
-        SELECT * FROM tasks
-        WHERE id = ?
-    `
-    const params = [id]
+    const userId = req.user.id;
+
+    const query = `SELECT * FROM tasks WHERE id = ? AND user_id = ?`;
+    const params = [id, userId];
+
     db.get(query, params, (err, row) => {
         if(err) {
             return res.status(500).json({success:false,data:err.message})
@@ -68,10 +70,11 @@ const getTask = (req, res) => {
 
 // for GET (all) tasks
 const getAllTasks = (req, res) => {
-    const query = `
-        SELECT * FROM tasks
-    `
-    db.all(query, [], (err, rows) => {
+    const userId = req.user.id;
+    const query = `SELECT * FROM tasks WHERE user_id = ?`;
+    const params = [userId];
+
+    db.all(query, params, (err, rows) => {
         if(err) {
             return res.status(500).json({success:false,data:err.message})
         }
@@ -83,7 +86,9 @@ const getAllTasks = (req, res) => {
 // for PUT
 const updateTask = (req, res) => {
     const { id } = req.params
-    const { description, priority, progress, status } = req.body
+    const userId = req.user.id;
+    const { description, priority, progress, status } = req.body;
+
     const query = `
         UPDATE tasks
         SET
@@ -91,9 +96,9 @@ const updateTask = (req, res) => {
             priority = COALESCE(?, priority),
             progress = COALESCE(?, progress),
             status = COALESCE(?, status)
-        WHERE id = ?
-    `
-    const params = [description, priority, progress, status, id]
+        WHERE id = ? AND user_id = ? 
+    `;
+    const params = [description, priority, progress, status, id, userId];
 
     db.run(query, params, function(err) {
         if(err) {
@@ -137,8 +142,10 @@ const finishedTask = (req, res) => {
 // for DELETE
 const deleteTask = (req, res) => {
     const { id } = req.params
-    const query = `DELETE FROM tasks WHERE id = ?`
-    const params = [id]
+    const userId = req.user.id;
+
+    const query = `DELETE FROM tasks WHERE id = ? AND user_id = ?`;
+    const params = [id, userId];
 
     db.run(query, params, function(err) {
         if(err) {
