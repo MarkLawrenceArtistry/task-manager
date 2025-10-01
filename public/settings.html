@@ -36,19 +36,41 @@
             </header>
 
             <section class="content-card">
-                <form id="register-user-form">
-                    <div>
-                        <label class="small-lbl">Username</label>
-                        <input type="text" id="username-register" placeholder="Admin" required autofocus>
-                    </div>
-                    <div>
-                        <label class="small-lbl">Password</label>
-                        <input type="password" id="password-register" placeholder="123" required>
-                    </div>
-                    <div>
-                        <button type="submit">Register</button>
-                    </div>
-                </form>
+                <div class="content-wrapper change-password">
+                    <h1>Change Password</h1>
+                    <form id="change-password">
+                        <div>
+                            <label class="small-lbl">Original Password</label>
+                            <input type="password" id="password-change-original" placeholder="123" required>
+                        </div>
+
+                        <div>
+                            <label class="small-lbl">New Password</label>
+                            <input type="password" id="password-change" placeholder="123" required>
+                        </div>
+
+                        <div>
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="content-wrapper">
+                    <h1>User Registration</h1>
+                    <form id="register-user-form">
+                        <div>
+                            <label class="small-lbl">Username</label>
+                            <input type="text" id="username-register" placeholder="Admin" required autofocus>
+                        </div>
+                        <div>
+                            <label class="small-lbl">Password</label>
+                            <input type="password" id="password-register" placeholder="123" required>
+                        </div>
+                        <div>
+                            <button type="submit">Register</button>
+                        </div>
+                    </form>
+                </div>
             </section>
         </main>
     </div>
