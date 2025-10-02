@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.querySelector('#login-form');
     const registerForm = document.querySelector('#register-user-form');
     const logoutBtn = document.querySelector('#logout-btn');
+    const changePasswordForm = document.querySelector('#change-password');
 
 
     // VARIABLES
@@ -532,8 +533,10 @@ document.addEventListener('DOMContentLoaded', () => {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault()
 
+            let username = document.querySelector('#username-login').value
+
             const credentials = {
-                username: document.querySelector('#username-login').value,
+                username: username,
                 password: document.querySelector('#password-login').value
             }
 
@@ -542,6 +545,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if(result.success && result.token) {
                     localStorage.setItem('token', result.token)
+                    localStorage.setItem('username', username)
                     alert('Welcome back!')
                     window.location.href = 'dashboard.html'
                 } else {
@@ -582,6 +586,34 @@ document.addEventListener('DOMContentLoaded', () => {
             if(confirm('Are you sure you want to logout tho?')) {
                 sessionStorage.clear()
                 window.location.href = 'index.html'
+            }
+        })
+    }
+    if(changePasswordForm) {
+        changePasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            let username = localStorage.getItem('username')
+            let credentials = {
+                username: username,
+                password: document.querySelector('#password-change-original').value,
+                newPassword: document.querySelector('#password-change').value
+            }
+
+            try {
+                const result = await api.changePassword(credentials)
+
+                if(result.success && result.token) {
+                    alert('Changed password successfully!')
+                } else {
+                    alert(result.data || 'Wrong credentials')
+                }
+
+                changePasswordForm.reset()
+            } catch (err) {
+                alert('Wrong credentials')
+                changePasswordForm.reset()
+                console.error(err)
             }
         })
     }

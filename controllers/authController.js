@@ -70,4 +70,57 @@ const login = (req, res) => {
     })
 }
 
-module.exports = { register, login }
+const changePassword = (req, res) => {
+    const { username, password, newPassword } = req.body
+
+    if(!username || !password) {
+        return res.status(400).json({success:false,data:"Username and password are required."})
+    }
+
+    const query = `SELECT * FROM users WHERE username = ?`
+    const params = [username]
+
+    db.get(query, params, (err, user) => {
+        if(err) {
+            return res.status(500).json({success:false,data:err.message})
+        }
+
+        bcrypt.compare(password, user.password_hash, (err, result) => {
+            if(err) {
+                return res.status(500).json({success:false,data:`Error: Comparing passwords failed. ${err.message}`})
+            }
+
+            if(result) {
+                bcrypt.hash(newPassword, 10, (err, hash) => {
+                    if(err) {
+                        return res.status(500).json({success:false,data:"Error: Hashing password failed."})
+                    }
+
+                    const updateQuery = `
+                        UPDATE users
+                        SET
+                            password_hash = ?
+                        WHERE username = ?
+                    `
+                    const updateParams = [hash, username]
+                    
+                    db.run(updateQuery, updateParams, function(err) {
+                        if(err) {
+                            return res.status(500).json({success:false,data:err.message})
+                        }
+
+                        if(this.changes > 0) {
+                            return res.status(200).json({success:true,data:`Successfully changed password.`})
+                        } else {
+                            return res.status(404).json({success:false,data:"User not found."})
+                        }
+                    })
+                })
+            } else {
+                return res.status(401).json({success:false,data:`Invalid password`})
+            }
+        })
+    })
+}
+
+module.exports = { register, login, changePassword }

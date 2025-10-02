@@ -42,6 +42,11 @@ const initDB = () => {
                 password_hash TEXT NOT NULL
             )
         `
+
+        // const deleteQuery = `
+        //     DELETE FROM users
+        //     WHERE id IN (1, 2, 3)
+        // `
         
         // priority
         db.run(priority, (err) => {
@@ -78,6 +83,14 @@ const initDB = () => {
                 console.log("users TABLE CREATED/ALREADY EXISTS.")
             }
         })
+
+        // db.run(deleteQuery, (err) => {
+        //     if (err) {
+        //         return
+        //     } else {
+        //         console.log("deleted successfully")
+        //     }
+        // })
     })
 }
 
