@@ -1,5 +1,4 @@
 
-
 // TASKS
 export const renderTasks = (tasks, divContainer) => {
     divContainer.innerHTML = ``
@@ -75,6 +74,8 @@ export const renderTasks = (tasks, divContainer) => {
     divContainer.appendChild(table)
     
 }
+
+
 
 // STATUS
 export const renderStatus = (statuses, divContainer) => {
@@ -226,4 +227,30 @@ export const renderPriorityToSelect = (priorities, divContainer, elementId, sele
 
     divContainer.appendChild(select)
     
+}
+
+
+
+// DASHBOARD
+export const renderAnalytics = (divContainer) => {
+    divContainer.innerHTML = ``
+
+    new Chart(divContainer, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 }

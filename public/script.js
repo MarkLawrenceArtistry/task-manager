@@ -61,6 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPriorityID = null;
 
 
+    // CHARTS
+    let tasksChart = document.querySelector('#chart-tasks')
+
+
 
     // UTILITY
     const closeModal = (modal) => {
@@ -618,6 +622,13 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+
+
+
+    // CHARTS
+    if(tasksChart) {
+        ui.renderAnalytics(tasksChart)
+    }
 
 
     // CALLERS
