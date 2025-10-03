@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadPriorities()
     }
     
-    if(window.location.pathname.endsWith("dashboard.html")) {
+    if(window.location.pathname.endsWith("tasks.html")) {
         loadTasks()
     }
 
