@@ -139,6 +139,14 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(err)
         }
     }
+    async function loadAnalytics() {
+        try {
+            const data = await api.fetchTasks()
+            ui.renderAnalytics(tasksChart, data)
+        } catch(err) {
+            console.error(err)
+        }
+    }
 
 
 
@@ -627,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // CHARTS
     if(tasksChart) {
-        ui.renderAnalytics(tasksChart)
+        loadAnalytics()
     }
 
 

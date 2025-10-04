@@ -232,16 +232,37 @@ export const renderPriorityToSelect = (priorities, divContainer, elementId, sele
 
 
 // DASHBOARD
-export const renderAnalytics = (divContainer) => {
+export const renderAnalytics = (divContainer, data) => {
     divContainer.innerHTML = ``
+
+    let veryHigh = []
+    let high = []
+    let medium = []
+    let low = []
+
+    data.forEach(task => {
+        if(task.priority === 'Very High') {
+            veryHigh.push(task)
+            return
+        } else if(task.priority === 'High') {
+            high.push(task)
+            return
+        } else if(task.priority === 'Medium') {
+            medium.push(task)
+            return
+        } else if(task.priority === 'Low') {
+            low.push(task)
+            return
+        }
+    });
 
     new Chart(divContainer, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['Very High', 'High', 'Medium', 'Low'],
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Number of tasks, based on priority',
+        data: [veryHigh.length, high.length, medium.length, low.length],
         borderWidth: 1
       }]
     },
