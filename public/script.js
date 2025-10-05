@@ -596,7 +596,8 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault()
 
             if(confirm('Are you sure you want to logout tho?')) {
-                sessionStorage.clear()
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
                 window.location.href = 'index.html'
             }
         })
@@ -628,6 +629,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error(err)
             }
         })
+    }
+    if(localStorage.getItem('token')) {
+        const path = window.location.pathname
+        const onLoginPage = path.endsWith('/') || path.endsWith('index.html')
+
+        if(onLoginPage) {
+            window.location.replace('dashboard.html')
+        } else {
+            history.pushState(null, null, location.href)
+            window.onpopstate = function() {
+                history.go(1)
+            }
+        }
     }
 
 
