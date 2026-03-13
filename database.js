@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3')
 const DB_SOURCE = 'tasks.db'
+const bcrypt = require('bcrypt')
 
 const db = new sqlite3.Database(DB_SOURCE, (err) => {
     if(err) {
@@ -42,11 +43,6 @@ const initDB = () => {
                 password_hash TEXT NOT NULL
             )
         `
-
-        // const deleteQuery = `
-        //     DELETE FROM users
-        //     WHERE id IN (1, 2, 3)
-        // `
         
         // priority
         db.run(priority, (err) => {
@@ -84,13 +80,28 @@ const initDB = () => {
             }
         })
 
-        // db.run(deleteQuery, (err) => {
-        //     if (err) {
-        //         return
-        //     } else {
-        //         console.log("deleted successfully")
-        //     }
-        // })
+        db.get(`SELECT * FROM users WHERE username = 'admin'`, [], (err, row) => {
+            if(row) {
+                return console.log('Initial admin account already exists.')
+            }
+
+            const username = 'admin'
+            const password = 'Admin123!'
+
+            bcrypt.hash(password, 10, (err, hash) => {
+                if(err) {
+                    return console.error(`Error hashing password.`)
+                }
+
+                db.run('INSERT INTO users (username, password_hash) VALUES (?, ?)', [username, hash], (err) => {
+                    if(err) {
+                        return console.error(`Error inserting initial account: ${err.message}`)
+                    }
+                    
+                    console.log('Created initial admin successfully!')
+                })
+            })
+        })
     })
 }
 
