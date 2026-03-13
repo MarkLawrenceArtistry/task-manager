@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const { db, initDB } = require('./database')
 
-const PORT = 3000
+const PORT = 8000
 const app = express()
 const taskRoutes = require('./routes/tasks')
 const priorityRoutes = require('./routes/priority')
